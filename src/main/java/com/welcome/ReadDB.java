@@ -1,22 +1,17 @@
 package com.welcome;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+
+import Utility.DB;
 
 public class ReadDB {
 
 	public static void main(String[] args) {
 		try {
-			// create our mysql database connection
-			String myUrl = "jdbc:mysql://localhost/emeeting";
-			Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
-			Connection conn = DriverManager.getConnection(myUrl, "root", "");
 
-			// our SQL SELECT query.
-			// if you only need a few columns, specify them by name instead of
-			// using "*"
+			Connection conn = DB.getConnection();
 			String query = "SELECT * FROM employees";
 			// create the java statement
 			Statement st = conn.createStatement();
@@ -39,6 +34,7 @@ public class ReadDB {
 
 			}
 			st.close();
+			conn.close();
 		} catch (Exception e) {
 			System.err.println("Got an exception! ");
 			System.err.println(e.getMessage());
